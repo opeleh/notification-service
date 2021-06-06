@@ -1,20 +1,19 @@
 package io.opeleh.notificationservice.entities;
 
-import javax.persistence.Entity;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@ToString
 public class NotificationMessage {
 
-    private String Msg;  //message to be send
+    private String message;  //message to be send
 
     private String toAddress; //reciever address, could be email, sms or any as implemented in the future
 

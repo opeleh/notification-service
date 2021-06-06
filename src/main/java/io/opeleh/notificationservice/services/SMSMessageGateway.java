@@ -1,5 +1,7 @@
 package io.opeleh.notificationservice.services;
 
+import org.springframework.stereotype.Service;
+
 import io.opeleh.notificationservice.entities.NotificationMessage;
 
 /*
@@ -11,7 +13,7 @@ import io.opeleh.notificationservice.entities.NotificationMessage;
 * @version  1.0.1
 * @company 
 */
-
+@Service
 public class SMSMessageGateway implements MessageGatewayInterface{
 
     public void sendMessage(NotificationMessage notificationMessage) {
