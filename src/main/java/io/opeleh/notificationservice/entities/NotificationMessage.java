@@ -10,12 +10,24 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class NotificationMessage {
 
-    private String message;  //message to be send
+    private String channel;  //message channel
 
-    private String toAddress; //reciever address, could be email, sms or any as implemented in the future
+    private String to; //receiver address, could be email, sms or any as implemented in the future
 
-    private String fromAddress; //sender Address, could be email, sms or any as implemented in the future
+    private String content; // message sent
+
+    @Override
+    public String toString() {
+
+//        return "{\"messages\": [{ \"channel\": \"sms\", \"to\": \"2349016084652\", \"content\": \"Here is my message\"}]}";
+        return "{\"messages\":[" +
+                "{" +
+                "\"channel\":\"" + channel + '\"' +
+                ", \"to\":\"" + to + '\"' +
+                ", \"content\":\"" + content + '\"' +
+                "}]}";
+    }
 }
+

@@ -1,0 +1,4 @@
+proxy:
+  host: 172.25.30.17
+  port: 6060
+Authorization: XXXXX

@@ -1,6 +1,8 @@
 package io.opeleh.notificationservice.services;
 
 import io.opeleh.notificationservice.entities.NotificationMessage;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 
 /*
 * Contract to send message using any gateway of choice; SMS, Email or any other
@@ -16,6 +18,6 @@ import io.opeleh.notificationservice.entities.NotificationMessage;
 public interface MessageGatewayInterface {
     
 // SendMessage method contract
-   void sendMessage (NotificationMessage message);
+void sendMessage (NotificationMessage message, HttpHeaders requestHeaders, String requestURl);
 
 }
