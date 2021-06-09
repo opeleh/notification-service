@@ -1,5 +1,6 @@
 package io.opeleh.notificationservice.services;
 
+import io.opeleh.notificationservice.abstrations.MessageGatewayInterface;
 import io.opeleh.notificationservice.configs.HttpRestClient;
 import io.opeleh.notificationservice.exception.HttpRequestException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 */
 @Service
 @Slf4j
-public class SMSMessageGateway implements MessageGatewayInterface{
+public class SMSMessageGateway implements MessageGatewayInterface {
 
     @Autowired
     private HttpRestClient restClient;

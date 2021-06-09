@@ -29,6 +29,8 @@ public class HttpRestClient {
     @Value("${proxy.port}")
     private int port;
 
+
+
     public RestTemplate restTemplate(){
 
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();

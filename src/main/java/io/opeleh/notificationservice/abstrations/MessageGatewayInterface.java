@@ -1,8 +1,7 @@
-package io.opeleh.notificationservice.services;
+package io.opeleh.notificationservice.abstrations;
 
 import io.opeleh.notificationservice.entities.NotificationMessage;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 
 /*
 * Contract to send message using any gateway of choice; SMS, Email or any other
