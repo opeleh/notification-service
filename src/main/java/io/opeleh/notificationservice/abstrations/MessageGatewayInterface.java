@@ -2,6 +2,7 @@ package io.opeleh.notificationservice.abstrations;
 
 import io.opeleh.notificationservice.entities.NotificationMessage;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 
 /*
 * Contract to send message using any gateway of choice; SMS, Email or any other
@@ -13,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 * @version  1.0.1
 * @company  OpelehNG
 */
+
 
 public interface MessageGatewayInterface {
     

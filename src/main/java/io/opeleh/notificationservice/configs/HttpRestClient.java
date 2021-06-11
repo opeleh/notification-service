@@ -2,8 +2,9 @@ package io.opeleh.notificationservice.configs;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.InetSocketAddress;
@@ -19,7 +20,7 @@ import java.net.Proxy;
  *
  */
 
-@Service
+@Configuration
 @Slf4j
 public class HttpRestClient {
 
@@ -29,8 +30,7 @@ public class HttpRestClient {
     @Value("${proxy.port}")
     private int port;
 
-
-
+    @Bean
     public RestTemplate restTemplate(){
 
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -38,6 +38,8 @@ public class HttpRestClient {
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname,port));
 
         requestFactory.setProxy(proxy);
+        requestFactory.setConnectTimeout(15000);
+        requestFactory.setReadTimeout(5000);
 
         return new RestTemplate(requestFactory);
     }

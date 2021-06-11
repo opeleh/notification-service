@@ -6,8 +6,8 @@ import io.opeleh.notificationservice.exception.HttpRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
 import io.opeleh.notificationservice.entities.NotificationMessage;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 
 /*
@@ -19,20 +19,22 @@ import org.springframework.web.client.HttpStatusCodeException;
 * @company  opelehng.io
 *
 */
+
 @Service
 @Slf4j
 public class SMSMessageGateway implements MessageGatewayInterface {
 
     @Autowired
-    private HttpRestClient restClient;
+    private HttpRestClient restTemplate;
 
     public void sendMessage(NotificationMessage notificationMessage, HttpHeaders requestHeaders, String requestURL) {
         log.info("{}", requestHeaders);
         log.info("{}", notificationMessage);
         ResponseEntity <String> response;
         HttpEntity<String> entity = new HttpEntity<>(notificationMessage.toString(), requestHeaders);
+//        restTemplate = new HttpRestClient();
         try {
-            response = restClient.restTemplate().postForEntity(requestURL,entity,String.class);
+            response = restTemplate.restTemplate().exchange(requestURL, HttpMethod.POST, entity, String.class);
         }catch (HttpStatusCodeException e){
             log.error("{}", e);
             throw new HttpRequestException("throw Costume Exception");
@@ -40,7 +42,7 @@ public class SMSMessageGateway implements MessageGatewayInterface {
             log.info("{}", e);
             throw new HttpRequestException("throw Costume Exception");
         }
-
+        log.info("{}", response);
     }
 
 

@@ -31,32 +31,33 @@ import java.util.Collections;
 @RequestMapping(path = "message/api/v1/send")
 public class SendNotificationMessage {
 
+
     @Autowired
-    private SMSMessageGateway smsMessageGateway;
+    private MessageGatewayFactory messageGatewayFactory;
 
     @Value("${Authorization}")
     private String Authorization_key;
 
-    private MessageGatewayFactory messageGatewayFactory;
+
+
     private MessageGatewayInterface messageGatewayInterface;
    
-    @PostMapping (path ="{iGateway}")
-    public ResponseEntity <NotificationMessage> sendMessage(@RequestBody NotificationMessage notificationMessage, @PathVariable String iGateway){
+    @PostMapping (path ="{gateway}")
+    public ResponseEntity <NotificationMessage> sendMessage(@RequestBody NotificationMessage notificationMessage, @PathVariable String gateway){
 
         //  set Headers for the request
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization","gV4HJKGjT_C5mWC2icWsJw==");
+        headers.set("Authorization",Authorization_key);
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
         // request endpoint
         String requestURl = "https://platform.clickatell.com/v1/message";
 
-        messageGatewayFactory = new MessageGatewayFactory();
-        messageGatewayInterface = messageGatewayFactory.getMessageGateway(iGateway);
+        messageGatewayInterface = messageGatewayFactory.createMessageGateway(gateway);
 
         // call smsMessageGateway
-        smsMessageGateway.sendMessage(notificationMessage, headers, requestURl);
+        messageGatewayInterface.sendMessage(notificationMessage, headers, requestURl);
 
         // return notification Message as response
         return new ResponseEntity<>(notificationMessage, HttpStatus.CREATED);
