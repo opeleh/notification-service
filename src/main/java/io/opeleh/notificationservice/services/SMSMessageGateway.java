@@ -28,11 +28,20 @@ public class SMSMessageGateway implements MessageGatewayInterface {
     private HttpRestClient restTemplate;
 
     public void sendMessage(NotificationMessage notificationMessage, HttpHeaders requestHeaders, String requestURL) {
+
+        // log request headers
         log.info("{}", requestHeaders);
+
+        // log request body
         log.info("{}", notificationMessage);
+
+        // create local variable
         ResponseEntity <String> response;
+
+        //Create Http Entity
         HttpEntity<String> entity = new HttpEntity<>(notificationMessage.toString(), requestHeaders);
-//        restTemplate = new HttpRestClient();
+
+        // Send Http request
         try {
             response = restTemplate.restTemplate().exchange(requestURL, HttpMethod.POST, entity, String.class);
         }catch (HttpStatusCodeException e){

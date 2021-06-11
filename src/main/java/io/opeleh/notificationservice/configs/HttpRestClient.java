@@ -30,14 +30,20 @@ public class HttpRestClient {
     @Value("${proxy.port}")
     private int port;
 
+    @Value("${proxy.enabled}")
+    private boolean useProxy;
+
     @Bean
     public RestTemplate restTemplate(){
 
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
 
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname,port));
+        // Check to know when to use proxy
+        if(useProxy) {
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname, port));
+            requestFactory.setProxy(proxy);
+        }
 
-        requestFactory.setProxy(proxy);
         requestFactory.setConnectTimeout(15000);
         requestFactory.setReadTimeout(5000);
 
