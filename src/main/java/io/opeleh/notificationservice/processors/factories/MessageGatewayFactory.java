@@ -1,8 +1,8 @@
-package io.opeleh.notificationservice.factories;
+package io.opeleh.notificationservice.processors.factories;
 
-import io.opeleh.notificationservice.abstrations.MessageGatewayInterface;
-import io.opeleh.notificationservice.services.EmailMessageGateway;
-import io.opeleh.notificationservice.services.SMSMessageGateway;
+import io.opeleh.notificationservice.processors.contracts.MessageGatewayInterface;
+import io.opeleh.notificationservice.processors.implementations.EmailMessageGateway;
+import io.opeleh.notificationservice.processors.implementations.SMSMessageGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package io.opeleh.notificationservice.abstrations;
+package io.opeleh.notificationservice.processors.contracts;
 
 import io.opeleh.notificationservice.entities.NotificationMessage;
 import org.springframework.http.HttpHeaders;
@@ -16,8 +16,8 @@ import org.springframework.http.HttpHeaders;
 
 
 public interface MessageGatewayInterface {
-    
+
 // SendMessage method contract
-void sendMessage (NotificationMessage message, HttpHeaders requestHeaders, String requestURl);
+void sendMessage (NotificationMessage message, HttpHeaders requestHeaders);
 
 }

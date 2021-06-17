@@ -1,6 +1,6 @@
-package io.opeleh.notificationservice.services;
+package io.opeleh.notificationservice.processors.implementations;
 
-import io.opeleh.notificationservice.abstrations.MessageGatewayInterface;
+import io.opeleh.notificationservice.processors.contracts.MessageGatewayInterface;
 import io.opeleh.notificationservice.configs.HttpRestClient;
 import io.opeleh.notificationservice.exception.HttpRequestException;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,9 @@ public class SMSMessageGateway implements MessageGatewayInterface {
     @Autowired
     private HttpRestClient restTemplate;
 
-    public void sendMessage(NotificationMessage notificationMessage, HttpHeaders requestHeaders, String requestURL) {
+    private String requestURL = "https://platform.clickatell.com/v1/message";
+
+    public void sendMessage(NotificationMessage notificationMessage, HttpHeaders requestHeaders) {
 
         // log request headers
         log.info("{}", requestHeaders);

@@ -20,8 +20,6 @@ public class NotificationMessage {
 
     @Override
     public String toString() {
-
-//        return "{\"messages\": [{ \"channel\": \"sms\", \"to\": \"2349016084652\", \"content\": \"Here is my message\"}]}";
         return "{\"messages\":[" +
                 "{" +
                 "\"channel\":\"" + channel + '\"' +

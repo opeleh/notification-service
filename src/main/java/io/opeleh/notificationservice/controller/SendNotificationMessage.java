@@ -1,7 +1,7 @@
 package io.opeleh.notificationservice.controller;
 
-import io.opeleh.notificationservice.abstrations.MessageGatewayInterface;
-import io.opeleh.notificationservice.factories.MessageGatewayFactory;
+import io.opeleh.notificationservice.processors.contracts.MessageGatewayInterface;
+import io.opeleh.notificationservice.processors.factories.MessageGatewayFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.opeleh.notificationservice.entities.NotificationMessage;
-import io.opeleh.notificationservice.services.SMSMessageGateway;
 
 import java.util.Collections;
 
@@ -51,13 +50,10 @@ public class SendNotificationMessage {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
-        // request endpoint
-        String requestURl = "https://platform.clickatell.com/v1/message";
-
         messageGatewayInterface = messageGatewayFactory.createMessageGateway(gateway);
 
         // call smsMessageGateway
-        messageGatewayInterface.sendMessage(notificationMessage, headers, requestURl);
+        messageGatewayInterface.sendMessage(notificationMessage, headers);
 
         // return notification Message as response
         return new ResponseEntity<>(notificationMessage, HttpStatus.CREATED);
