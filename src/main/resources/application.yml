@@ -1,5 +1,5 @@
 proxy:
-  host: 172.25.30.117
-  port: 6060
-  enabled: true
-Authorization: gV4HJKGjT_C5mWC2icWsJw==
+  host: 172.2
+  port:
+  enabled: false
+Authorization:
