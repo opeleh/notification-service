@@ -16,7 +16,7 @@ public class HttpExceptionHandler {
         HttpException httpException = new HttpException(
                 e.getMessage(),
                 HttpStatus.BAD_REQUEST,
-                ZonedDateTime.now(ZoneId.of("Z" ))
+                ZonedDateTime.now(ZoneId.of("Z"))
         );
 
         return new ResponseEntity<>(httpException,HttpStatus.BAD_REQUEST );

@@ -2,18 +2,14 @@ package io.opeleh.notificationservice.controller;
 
 import io.opeleh.notificationservice.processors.contracts.MessageGatewayInterface;
 import io.opeleh.notificationservice.processors.factories.MessageGatewayFactory;
+import io.opeleh.notificationservice.utils.HttpHeadersUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.opeleh.notificationservice.entities.NotificationMessage;
-
-import java.util.Collections;
 
 /*
  * Implementation of SendNotificationMessage controller.
@@ -34,26 +30,18 @@ public class SendNotificationMessage {
     @Autowired
     private MessageGatewayFactory messageGatewayFactory;
 
-    @Value("${Authorization}")
-    private String Authorization_key;
-
-
+    @Autowired
+    private HttpHeadersUtilities httpHeadersUtilities;
 
     private MessageGatewayInterface messageGatewayInterface;
    
-    @PostMapping (path ="{gateway}")
-    public ResponseEntity <NotificationMessage> sendMessage(@RequestBody NotificationMessage notificationMessage, @PathVariable String gateway){
+    @PostMapping
+    public ResponseEntity <NotificationMessage> sendMessage(@RequestBody NotificationMessage notificationMessage){
 
-        //  set Headers for the request
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization",Authorization_key);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        messageGatewayInterface = messageGatewayFactory.createMessageGateway(gateway);
+        messageGatewayInterface = messageGatewayFactory.createMessageGateway(notificationMessage.getChannel());
 
         // call smsMessageGateway
-        messageGatewayInterface.sendMessage(notificationMessage, headers);
+        messageGatewayInterface.sendMessage(notificationMessage, httpHeadersUtilities.getHeaders());
 
         // return notification Message as response
         return new ResponseEntity<>(notificationMessage, HttpStatus.CREATED);

@@ -1,5 +1,6 @@
 package io.opeleh.notificationservice.processors.factories;
 
+import io.opeleh.notificationservice.exception.HttpRequestException;
 import io.opeleh.notificationservice.processors.contracts.MessageGatewayInterface;
 import io.opeleh.notificationservice.processors.implementations.EmailMessageGateway;
 import io.opeleh.notificationservice.processors.implementations.SMSMessageGateway;
@@ -23,8 +24,9 @@ public class MessageGatewayFactory {
             }
             else if(messageGateway.equalsIgnoreCase("SMS")){
                 return smsMessageGateway;
+            }else {
+                throw new HttpRequestException("Invalid message gateway passed");
             }
-            return null;
         }
 
 }
